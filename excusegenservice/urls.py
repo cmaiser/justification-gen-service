@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from excusegenservice import locationResolver
+from excusegenservice.views import locationResolver
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
