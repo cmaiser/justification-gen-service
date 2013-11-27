@@ -18,7 +18,7 @@ def locationResolver(request):
       latitude = str(request.POST['lat'])
       longitude = str(request.POST['lon'])
       
-      logger.debug("Post data - " + latitude + ", " + longitude)
+      logger.debug("locationResolver - POST - " + latitude + ", " + longitude)
       
       #build request URL
       url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false"
@@ -31,19 +31,20 @@ def locationResolver(request):
       
       except:
 	
-	logger.error("Error: could not contact Google!")
+	logger.error("locationResolver - could not contact Google!")
 	return HttpResponse("Error: could not contact Google!")
       
     except:
       
-      logger.error("Error: bad request!")
+      logger.error("locationResolver - bad request!")
       return HttpResponse("Error: bad request!")
     
   else:
     
-    logger.error("Request not ajax")
+    logger.error("locationResolver - Request not ajax")
     raise Http404
 
+@csrf_exempt
 def generateExcuses(request):
   if request.is_ajax():
     try:
@@ -62,9 +63,9 @@ def generateExcuses(request):
       
     except:
       
-      logger.error("Error: bad request!")
+      logger.error("generateExcuses - bad request!")
       return HttpResponse("Error: bad request!")
       
   else:
-    logger.error("Request not ajax")
+    logger.error("generateExcuses - Request not ajax")
     raise Http404
