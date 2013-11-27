@@ -144,7 +144,7 @@ LOGGING = {
     'file': {
       'level': 'DEBUG',
       'class': 'logging.FileHandler',
-      'filename': '/var/logs/excusegenservice.log',
+      'filename': '/var/log/excusegenservice.log',
       'formatter': 'verbose'
     },
   },
