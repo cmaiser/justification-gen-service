@@ -7,5 +7,5 @@ from excusegenservice.views import locationResolver, generateExcuses
 
 urlpatterns = patterns('',
     url(r'^locationResolver/', locationResolver),
-    url(r'^generateExcuses/', generateExcuse),
+    url(r'^generateExcuses/', generateExcuses),
 )
