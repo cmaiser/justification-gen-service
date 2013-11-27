@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("excusegenservice")
 
 #TODO, use csrf in the future.
 @csrf_exempt
