@@ -13,6 +13,9 @@ def locationResolver(request):
   #check request for HTTP_X_REQEUSTED_WITH header
   if request.is_ajax():
     
+    latitude = 0
+    longitude = 0
+    
     try:
       
       #get POST data
@@ -21,6 +24,12 @@ def locationResolver(request):
       
       logger.debug("locationResolver - POST - %f, %f" % (latitude, longitude))
       
+    except:
+      
+      logger.error("locationResolver - bad request!")
+      return HttpResponse("Error: bad request!")
+      
+    try:
       location = resolveLocation(latitude, longitude)
       
       if location["errorMsg"] != "":
@@ -31,10 +40,9 @@ def locationResolver(request):
 	return HttpResponse(location["errorMsg"])
 
     except:
-      
-      logger.error("locationResolver - bad request!")
-      return HttpResponse("Error: bad request!")
-    
+      logger.error("Bad things with the location resolver module!")
+      return HttpResponse("Bad things with the location resolver module!")
+
   else:
     
     logger.error("locationResolver - Request not ajax")
