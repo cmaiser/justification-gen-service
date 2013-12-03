@@ -44,14 +44,14 @@ def locationResolver(request):
       
       if location["errorMsg"] == "":
 	logger.debug(location["allOptions"])
-	return HttpResponse(json.dumps(location))
+	return HttpResponse(json.dumps(location), content_type="application/json")
       else:
 	logger.error(location["errorMsg"])
 	return HttpResponse(location["errorMsg"])
 
     except:
-      logger.error("Bad things with the location resolver module!")
-      return HttpResponse("Bad things with the location resolver module!")
+      logger.error("Server error!")
+      return HttpResponse("Server error!")
 
   else:
     
