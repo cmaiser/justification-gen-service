@@ -36,12 +36,11 @@ def resolveLocation(latitude, longitude, logger):
     returnList["allOptions"] = allOptions
     returnList["errorMsg"] = ""
 
-    except urllib2.HTTPError, e:
-      logger.error('HTTPError = ' + str(e.code))
-    except urllib2.URLError, e:
-      logger.error('URLError = ' + str(e.reason))
-    except httplib.HTTPException, e:
-      logger.error('HTTPException')
-    
+  except urllib2.HTTPError, e:
+    logger.error('HTTPError = ' + str(e.code))
+  except urllib2.URLError, e:
+    logger.error('URLError = ' + str(e.reason))
+  except httplib.HTTPException, e:
+    logger.error('HTTPException')
   finally:
     return returnList
