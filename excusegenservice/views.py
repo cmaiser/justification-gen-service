@@ -1,10 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
-from excusegenservice.processTweets.locationResolver import resolveLocation
+  
 import urllib2
 import logging
 
 logger = logging.getLogger("excusegenservice")
+
+try:
+  from excusegenservice.processTweets.locationResolver import resolveLocation
+except ImportError:
+  logger.error("Failed to import excusegenservice.processTweets.locationResolver import resolveLocation")
 
 #TODO, use csrf in the future.
 @csrf_exempt
