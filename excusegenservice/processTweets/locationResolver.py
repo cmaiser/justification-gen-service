@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import urllib2
 import json
 
@@ -10,7 +8,7 @@ def resolveLocation(latitude, longitude):
   
   try:
     
-    allOptions = ""
+    allOptions = "\n"
 
     response = urllib2.urlopen(url)
     data = json.load(response)
