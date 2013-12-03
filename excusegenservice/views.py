@@ -49,9 +49,9 @@ def locationResolver(request):
 	logger.error(location["errorMsg"])
 	return HttpResponse(location["errorMsg"])
 
-    except:
-      logger.error("Server error!")
-      return HttpResponse("Server error!")
+    except(TypeError, ValueError) as err:
+      logger.error("Server error: " + err)
+      return HttpResponse("Server error: " + err)
 
   else:
     
