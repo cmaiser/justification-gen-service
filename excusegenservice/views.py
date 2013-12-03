@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
-from processTweets.locationResolver import resolveLocation
+from excusegenservice.processTweets.locationResolver import resolveLocation
 import urllib2
 import logging
 
@@ -34,6 +34,8 @@ def locationResolver(request):
       logger.debug("locationResolver - attempting to use locationResolver module: "  + latitude + ", " + longitude)
       
       location = resolveLocation(latitude, longitude)
+      
+      logger.debug("locationResolver - module success")
       
       if location["errorMsg"] == "":
 	logger.debug(location["allOptions"])
