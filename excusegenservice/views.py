@@ -22,7 +22,7 @@ def locationResolver(request):
       latitude = str(request.POST['lat'])
       longitude = str(request.POST['lon'])
       
-      logger.debug("locationResolver - POST - %f, %f" % (latitude, longitude))
+      logger.debug("locationResolver - POST - " + latitude + ", " + longitude)
       
     except:
       
