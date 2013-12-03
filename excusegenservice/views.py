@@ -42,8 +42,6 @@ def locationResolver(request):
       
       location = resolveLocation(latitude, longitude, logger)
       
-      logger.debug("locationResolver - module success")
-      
       if location["errorMsg"] == "":
 	logger.debug(location["allOptions"])
 	return HttpResponse(json.dumps(location))

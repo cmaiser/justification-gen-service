@@ -16,7 +16,6 @@ def resolveLocation(latitude, longitude, logger):
     response = urllib2.urlopen(url)
     data = json.load(response)
 
-    logger.debug("processTweets.locationResolver.resolveLocation connection success")
 
     for component in data["results"][0]["address_components"]:
   
@@ -35,12 +34,14 @@ def resolveLocation(latitude, longitude, logger):
 
     returnList["allOptions"] = allOptions
     returnList["errorMsg"] = ""
+    logger.debug('processTweets.locationResolver.resolveLocation CONNECTION SUCCESS')
 
   except urllib2.HTTPError, e:
-    logger.error('HTTPError = ' + str(e.code))
+    logger.error('processTweets.locationResolver.resolveLocation HTTPError = ' + str(e.code))
   except urllib2.URLError, e:
-    logger.error('URLError = ' + str(e.reason))
+    logger.error('processTweets.locationResolver.resolveLocation URLError = ' + str(e.reason))
   except httplib.HTTPException, e:
-    logger.error('HTTPException')
+    logger.error('processTweets.locationResolver.resolveLocation HTTPException')
   finally:
+    logger.debug('processTweets.locationResolver.resolveLocation RETURN')
     return returnList
