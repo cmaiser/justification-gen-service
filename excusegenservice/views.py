@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
+from excusegenservice.processTweets.locationResolver import resolveLocation
 import urllib2
 import logging
 
@@ -18,22 +19,17 @@ def locationResolver(request):
       latitude = str(request.POST['lat'])
       longitude = str(request.POST['lon'])
       
-      logger.debug("locationResolver - POST - " + latitude + ", " + longitude)
+      logger.debug("locationResolver - POST - %f, %f" % (latitude, longitude))
       
-      #build request URL
-      url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false"
+      location = resolveLocation(latitude, longitude)
       
-      try:
-	
-	#make request and return response text if successful
-	response = urllib2.urlopen(url)
-	return HttpResponse(response.read())
-      
-      except:
-	
-	logger.error("locationResolver - could not contact Google!")
-	return HttpResponse("Error: could not contact Google!")
-      
+      if location["errorMsg"] != "":
+	logger.debug(location["allOptions"])
+	return HttpResponse(json.dumps(location))
+      else:
+	logger.error(location["errorMsg"])
+	return HttpResponse(location["errorMsg"])
+
     except:
       
       logger.error("locationResolver - bad request!")
