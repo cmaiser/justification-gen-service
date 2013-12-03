@@ -1,8 +1,9 @@
 import urllib2
 import json
 
-def resolveLocation(latitude, longitude):
+def resolveLocation(latitude, longitude, logger):
 
+  logger.debug("locationResolver MODULE!")
   url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=false" % (latitude, longitude)
   returnList = {}
   

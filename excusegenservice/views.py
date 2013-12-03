@@ -40,7 +40,7 @@ def locationResolver(request):
       
       logger.debug("locationResolver - attempting to use locationResolver module: "  + latitude + ", " + longitude)
       
-      location = resolveLocation(latitude, longitude)
+      location = resolveLocation(latitude, longitude, logger)
       
       logger.debug("locationResolver - module success")
       
