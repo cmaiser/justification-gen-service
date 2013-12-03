@@ -4,7 +4,7 @@ import json
 def resolveLocation(latitude, longitude, logger):
 
   logger.debug("processTweets.locationResolver.resolveLocation accessed successfully")
-  url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=false" % (latitude, longitude)
+  url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%" + latitude + "," + longitude + "&sensor=false"
   returnList = {}
   
   try:
