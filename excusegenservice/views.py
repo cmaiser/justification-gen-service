@@ -46,7 +46,7 @@ def locationResolver(request):
       if location["errorMsg"] == "":
 	logger.debug(location["allOptions"])
 	del location["allOptions"]
-	return HttpResponse(json.dumps(location), content_type="application/json")
+	return HttpResponse(json.dumps(location))
       else:
 	logger.error(location["errorMsg"])
 	return HttpResponse(location["errorMsg"])
