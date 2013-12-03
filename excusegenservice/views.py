@@ -10,6 +10,8 @@ try:
   from excusegenservice.processTweets.locationResolver import resolveLocation
 except ImportError:
   logger.error("Failed to import excusegenservice.processTweets.locationResolver import resolveLocation")
+finally:
+  logger.error("Successfully imported excusegenservice.processTweets.locationResolver import resolveLocation")
 
 #TODO, use csrf in the future.
 @csrf_exempt
