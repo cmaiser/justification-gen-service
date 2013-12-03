@@ -30,6 +30,9 @@ def locationResolver(request):
       return HttpResponse("Error: bad request!")
       
     try:
+      
+      logger.debug("locationResolver - attempting to use locationResolver module: "  + latitude + ", " + longitude)
+      
       location = resolveLocation(latitude, longitude)
       
       if location["errorMsg"] != "":
