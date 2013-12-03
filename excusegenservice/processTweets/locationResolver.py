@@ -3,7 +3,7 @@ import json
 
 def resolveLocation(latitude, longitude, logger):
 
-  logger.debug("locationResolver MODULE!")
+  logger.debug("processTweets.locationResolver.resolveLocation accessed successfully")
   url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=false" % (latitude, longitude)
   returnList = {}
   
@@ -11,8 +11,12 @@ def resolveLocation(latitude, longitude, logger):
     
     allOptions = "\n"
 
+    logger.debug("processTweets.locationResolver.resolveLocation attempting to connect to " + url)
+
     response = urllib2.urlopen(url)
     data = json.load(response)
+
+    logger.debug("processTweets.locationResolver.resolveLocation connection success")
 
     for component in data["results"][0]["address_components"]:
   
@@ -32,8 +36,12 @@ def resolveLocation(latitude, longitude, logger):
     returnList["allOptions"] = allOptions
     returnList["errorMsg"] = ""
 
-  except:
-    returnList["errorMsg"] = "Could not retrieve location information"
+    except urllib2.HTTPError, e:
+      logger.error('HTTPError = ' + str(e.code))
+    except urllib2.URLError, e:
+      logger.error('URLError = ' + str(e.reason))
+    except httplib.HTTPException, e:
+      logger.error('HTTPException')
     
   finally:
     return returnList
