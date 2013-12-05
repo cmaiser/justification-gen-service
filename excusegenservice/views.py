@@ -5,14 +5,10 @@ import urllib2
 import logging
 import json
 
-logger = logging.getLogger("excusegenservice")
+from excusegenservice.processTweets.locationResolver import resolveLocation
+from excusegenservice.processTweets.tweetAccessor import getTweets
 
-try:
-  from excusegenservice.processTweets.locationResolver import resolveLocation
-except ImportError:
-  logger.error("Failed to import excusegenservice.processTweets.locationResolver import resolveLocation")
-finally:
-  logger.error("Successfully imported excusegenservice.processTweets.locationResolver import resolveLocation")
+logger = logging.getLogger("excusegenservice")
 
 #TODO, use csrf in the future.
 @csrf_exempt
@@ -66,16 +62,12 @@ def generateExcuses(request):
     try:
       
       #get POST data
-      datetime = str(request.POST['datetime'])
-      location = str(request.POST['location'])
+      latitude = str(request.POST['lat'])
+      longitude = str(request.POST['lon'])
+
+      tweets = getTweets(latitude, longitude, logger)
       
-      returnJSON = """results: [" +
-	        { \"text\" : \"Static excuse from server 1\"},
-	        { \"text\" : \"Static excuse from server 2\"},
-	        { \"text\" : \"Static excuse from server 3\"}
-	      
-	      ]"""
-      return HttpResponse(returnJSON)
+      return HttpResponse(str(len(tweets)) + " Tweets found.")
       
     except:
       
