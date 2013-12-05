@@ -38,5 +38,5 @@ def getTweets(latitude, longitude, logger):
     logger.error("tweetAccessor.getTweets - " + e.errno)
   except TwitterSearchException as e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
-  except, e:
+  except Exception, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
