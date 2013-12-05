@@ -68,10 +68,9 @@ def generateExcuses(request):
       tweets = getTweets(latitude, longitude, logger)
       
       return HttpResponse(str(len(tweets)) + " Tweets found.")
-      
-    except:
-      
-      logger.error("generateExcuses - bad request!")
+
+    except Exception, e:
+      logger.error("views.generateExcuses - " + e.errno)
       return HttpResponse("Error: bad request!")
       
   else:
