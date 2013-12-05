@@ -31,7 +31,7 @@ def getTweets(latitude, longitude, logger):
     results = ts.searchTweetsIterable(tso)
     statistics = results.getStatistics()
     
-    logger.debug("tweetAccessor.getTweets - Found " + statistics["tweets"] + " Tweets in " + statistics["queries"] + " queries")
+    logger.debug("tweetAccessor.getTweets - Found " + str(statistics["tweets"]) + " Tweets in " + str(statistics["queries"]) + " queries")
     
     return results
   
