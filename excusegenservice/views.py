@@ -70,7 +70,7 @@ def generateExcuses(request):
       return HttpResponse(str(len(tweets)) + " Tweets found.")
 
     except Exception, e:
-      logger.error("views.generateExcuses - " + e.errno)
+      logger.error("views.generateExcuses - " + e)
       return HttpResponse("Error: bad request!")
       
   else:
