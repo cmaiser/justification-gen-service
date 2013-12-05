@@ -6,7 +6,15 @@ def getTweets(latitude, longitude, logger):
   
   logger.debug("tweetAccessor.getTweets - Reading in Twitter api config")
   
-  properties = dict(line.strip().split('=') for line in open('excusegenservice/config/twitterapi.properties'))
+  properties = {}
+  
+  try:
+  
+    properties = dict(line.strip().split('=') for line in open('excusegenservice/config/twitterapi.properties'))
+  
+  except IOError, e:
+    
+    logger.error("tweetAccessor.getTweets - " + e.errno)
   
   try:
 
@@ -40,4 +48,4 @@ def getTweets(latitude, longitude, logger):
     print "That was " + str(ctr) + " tweets." 
 
   except TwitterSearchException as e:
-    print(e)
+    logger.error("tweetAccessor.getTweets - " + e.errno)
