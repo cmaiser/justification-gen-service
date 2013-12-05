@@ -67,7 +67,7 @@ def generateExcuses(request):
 
       tweets = getTweets(latitude, longitude, logger)
       
-      return HttpResponse(tweets.getStatistics())
+      return HttpResponse("Successfully got tweets")
 
     except Exception, e:
       logger.error("views.generateExcuses - GENERAL EXCEPTION")
