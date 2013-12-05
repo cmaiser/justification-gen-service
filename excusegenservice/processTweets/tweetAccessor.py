@@ -4,7 +4,7 @@ from TwitterSearch import *
 
 def getTweets(latitude, longitude, logger):
   
-  logger.debug("tweetAccessor.getTweets - Reading in Twitter api config")
+  logger.debug("tweetAccessor.getTweets - Reading in twitterapi.properties")
   
   properties = {}
   
@@ -12,6 +12,7 @@ def getTweets(latitude, longitude, logger):
   
     properties = dict(line.strip().split('=') for line in open('excusegenservice/config/twitterapi.properties'))
   
+    logger.debug("tweetAccessor.getTweets - Successfully read twitterapi.properties")
   except IOError, e:
     
     logger.error("tweetAccessor.getTweets - " + e.errno)
@@ -39,13 +40,6 @@ def getTweets(latitude, longitude, logger):
     logger.debug("tweetAccessor.getTweets - Found " + str(len(results)) + " Tweets")
     
     return results
-
-#ctr = 0
-#for tweet in ts.searchTweetsIterable(tso):
-#print( '@%s tweeted: %s' % ( tweet['user']['screen_name'], tweet['text'] ) )
-#ctr = ctr + 1
-
-    print "That was " + str(ctr) + " tweets." 
 
   except TwitterSearchException as e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
