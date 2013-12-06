@@ -3,10 +3,11 @@
 from TwitterSearch import *
 from django.conf import settings
 import os
+import time
 
 def getTweets(latitude, longitude, logger):
   
-  returnMessage = "An error happened"
+  returnMessage = "A server error occured in tweetAccessor.getTweets"
 
   try:
 
@@ -34,6 +35,7 @@ def getTweets(latitude, longitude, logger):
 
     logger.debug("tweetAccessor.getTweets - Searching Twitter")
     
+    startTime = time.time()
     results = []
     ctr = 0
     
@@ -47,7 +49,9 @@ def getTweets(latitude, longitude, logger):
 
         ctr = ctr + 1
         
-    returnMessage = "Found " + str(ctr) + " Tweets containing the word \"sick\" within 5 miles of your location!"
+    elapsedTime = time.time() - startTime
+        
+    returnMessage = "Found " + str(ctr) + " Tweets containing the word \"sick\" within 5 miles of your location!<br />Elapsed time: " + str(elapsedTime)
 
     logger.debug("tweetAccessor.getTweets - " + returnMessage)
 
@@ -58,5 +62,4 @@ def getTweets(latitude, longitude, logger):
   except Exception, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
   finally:
-    logger.debug("tweetAccessor.getTweets - Returning message: " + returnMessage)
     return returnMessage
