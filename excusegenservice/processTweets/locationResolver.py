@@ -22,7 +22,7 @@ def resolveLocation(latitude, longitude, logger):
       if component["types"][0] != "street_number" and component["types"][0] != "route" and component["types"][0] != "neighborhood":
 	allOptions += "  " + component["types"][0] +  ": " + component["long_name"] + "\n"
  
-      if component["types"][0] == "administrative_area_level_2":
+      if component["types"][0] == "locality":
 	returnList["city"] = component["long_name"]
     
       if component["types"][0] == "administrative_area_level_1":
