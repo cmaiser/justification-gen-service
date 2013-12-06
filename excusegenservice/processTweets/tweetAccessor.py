@@ -47,9 +47,9 @@ def getTweets(latitude, longitude, logger):
 
         ctr = ctr + 1
         
-    returnMessage = "tweetAccessor.getTweets - Found " + str(ctr) + " Tweets"
+    returnMessage = "Found " + str(ctr) + " Tweets containing the word \"sick\" within 5 miles of your location!"
 
-    logger.debug(returnMessage)
+    logger.debug("tweetAccessor.getTweets - " + returnMessage)
 
   except IOError, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
