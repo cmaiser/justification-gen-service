@@ -8,13 +8,13 @@ def getTweets(latitude, longitude, logger):
   returnMessage = "An error happened"
 
   try:
-  
+
     path = str(os.path.dirname(os.path.realpath('__file__'))) + "/excusegenservice/config/twitterapi.properties"
-    
+
     logger.debug("tweetAccessor.getTweets - file path: " + path)
-    
-    properties = dict(line.strip().split('=') for line in open(path)
-  
+
+    properties = dict(line.strip().split('=') for line in open(path))
+
     logger.debug("tweetAccessor.getTweets - Successfully read twitterapi.properties")
 
     tso = TwitterSearchOrder()
