@@ -65,9 +65,9 @@ def generateExcuses(request):
       latitude = str(request.POST['lat'])
       longitude = str(request.POST['lon'])
 
-      tweets = getTweets(latitude, longitude, logger)
+      message = getTweets(latitude, longitude, logger)
       
-      return HttpResponse("Successfully got tweets")
+      return HttpResponse(message)
 
     except Exception, e:
       logger.error("views.generateExcuses - GENERAL EXCEPTION")

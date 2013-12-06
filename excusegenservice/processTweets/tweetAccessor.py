@@ -28,13 +28,23 @@ def getTweets(latitude, longitude, logger):
 
     logger.debug("tweetAccessor.getTweets - Searching Twitter")
     
-    results = ts.searchTweetsIterable(tso)
-    statistics = results.getStatistics()
+    results = []
+    ctr = 0
     
-    logger.debug("tweetAccessor.getTweets - Found " + str(statistics["tweets"]) + " Tweets in " + str(statistics["queries"]) + " queries")
-    
-    return results
-  
+    for tweet in ts.searchTweetsIterable(tso):
+
+	result = {}
+	result['user'] = tweet['user']['screen_name']
+	result['text'] = tweet['text']
+	result['date'] = tweet['created_at']
+        results.append(result)
+
+        ctr = ctr + 1
+
+    logger.debug("tweetAccessor.getTweets - Found " + ctr + " Tweets")
+
+    return "tweetAccessor.getTweets - Found " + ctr + " Tweets"
+
   except IOError, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
   except TwitterSearchException as e:
