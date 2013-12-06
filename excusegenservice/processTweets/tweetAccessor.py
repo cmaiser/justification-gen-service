@@ -9,7 +9,7 @@ def getTweets(latitude, longitude, logger):
 
   try:
 
-    path = str(os.path.dirname(os.path.realpath('__file__'))) + "/excusegenservice/config/twitterapi.properties"
+    path = str(os.path.dirname(os.path.abspath('__file__'))) + "/excusegenservice/config/twitterapi.properties"
 
     logger.debug("tweetAccessor.getTweets - file path: " + path)
 
