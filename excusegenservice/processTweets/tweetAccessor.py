@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from TwitterSearch import *
+from django.conf import settings
 import os
 
 def getTweets(latitude, longitude, logger):
@@ -9,7 +10,7 @@ def getTweets(latitude, longitude, logger):
 
   try:
 
-    path = str(os.path.dirname(os.path.abspath('__file__'))) + "/excusegenservice/config/twitterapi.properties"
+    path = settings.PROJECT_ROOT + "/config/twitterapi.properties"
 
     logger.debug("tweetAccessor.getTweets - file path: " + path)
 

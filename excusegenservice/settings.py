@@ -1,5 +1,5 @@
 # Django settings for excusegenservice project.
-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -62,6 +62,8 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = ''
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
