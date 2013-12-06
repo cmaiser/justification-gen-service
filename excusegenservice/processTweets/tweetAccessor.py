@@ -51,7 +51,7 @@ def getTweets(latitude, longitude, logger):
         
     elapsedTime = time.time() - startTime
         
-    returnMessage = "Found " + str(ctr) + " Tweets containing the word \"sick\" within 5 miles of your location!<br />Elapsed time: " + str(elapsedTime)
+    returnMessage = "Found " + str(ctr) + " Tweets containing the word \"sick\" within 5 miles of your location!<br />Elapsed time: " + str(elapsedTime) + " seconds"
 
     logger.debug("tweetAccessor.getTweets - " + returnMessage)
 
