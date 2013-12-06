@@ -54,7 +54,7 @@ def getTweets(latitude, longitude, logger):
         
     elapsedTime = time.time() - startTime
         
-    returnMessage = "Found " + str(ctr) + " Tweets containing the word \"sick\" within 5 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
+    returnMessage = "Found " + str(ctr) + " tweets containing the word \"sick\" within 5 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
 
     logger.debug("tweetAccessor.getTweets - " + returnMessage)
 
