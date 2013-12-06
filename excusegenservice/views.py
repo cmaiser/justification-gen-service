@@ -62,8 +62,8 @@ def generateExcuses(request):
     try:
       
       #get POST data
-      latitude = str(request.POST['lat'])
-      longitude = str(request.POST['lon'])
+      latitude = float(request.POST['lat'])
+      longitude = float(request.POST['lon'])
 
       message = getTweets(latitude, longitude, logger)
       
