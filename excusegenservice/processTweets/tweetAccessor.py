@@ -8,9 +8,13 @@ def getTweets(latitude, longitude, logger):
   
   logger.debug("tweetAccessor.getTweets - Reading in twitterapi.properties")
   
+  try:
+    properties = dict(line.strip().split('=') for line in open('excusegenservice/config/twitterapi.properties'))
+  except:
+    logger.debug("tweetAccessor.getTweets - Could not read file")
 
-  properties = dict(line.strip().split('=') for line in open('excusegenservice/config/twitterapi.properties'))
-
+  
+  
   
   try:
   
