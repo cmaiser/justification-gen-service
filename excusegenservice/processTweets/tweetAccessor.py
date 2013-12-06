@@ -4,6 +4,8 @@ from TwitterSearch import *
 
 def getTweets(latitude, longitude, logger):
   
+  returnMessage = "An error happened"
+  
   logger.debug("tweetAccessor.getTweets - Reading in twitterapi.properties")
   
   try:
@@ -40,10 +42,10 @@ def getTweets(latitude, longitude, logger):
         results.append(result)
 
         ctr = ctr + 1
+        
+    returnMessage = "tweetAccessor.getTweets - Found " + str(ctr) + " Tweets"
 
-    logger.debug("tweetAccessor.getTweets - Found " + ctr + " Tweets")
-
-    return "tweetAccessor.getTweets - Found " + ctr + " Tweets"
+    logger.debug(returnMessage)
 
   except IOError, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
@@ -51,3 +53,6 @@ def getTweets(latitude, longitude, logger):
     logger.error("tweetAccessor.getTweets - " + e.errno)
   except Exception, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
+  finally:
+    logger.debug("tweetAccessor.getTweets - Returning message: " + returnMessage)
+    return returnMessage
