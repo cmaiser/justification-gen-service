@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from TwitterSearch import *
+import os
 
 def getTweets(latitude, longitude, logger):
   
@@ -10,7 +11,7 @@ def getTweets(latitude, longitude, logger):
   
   try:
     
-    path = os.path( __dirname __)
+    path = os.path.dirname(os.path.realpath( __file__ ))
     
     logger.debug("tweetAccessor.getTweets - " + str(path))
     
