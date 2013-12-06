@@ -6,25 +6,14 @@ import os
 def getTweets(latitude, longitude, logger):
   
   returnMessage = "An error happened"
-  
-  logger.debug("tweetAccessor.getTweets - Reading in twitterapi.properties")
-  
-  try:
-    
-    path = os.path.dirname(os.path.realpath( __file__ ))
-    
-    logger.debug("tweetAccessor.getTweets - " + str(path))
-    
-    properties = dict(line.strip().split('=') for line in open('excusegenservice/config/twitterapi.properties'))
-  except:
-    logger.debug("tweetAccessor.getTweets - Could not read file")
 
-  
-  
-  
   try:
   
-    properties = dict(line.strip().split('=') for line in open('excusegenservice/config/twitterapi.properties'))
+    path = str(os.path.dirname(os.path.realpath( __file__ ))) + '../config/twitterapi.properties'
+    
+    logger.debug("tweetAccessor.getTweets - file path: " + path)
+    
+    properties = dict(line.strip().split('=') for line in open(path)
   
     logger.debug("tweetAccessor.getTweets - Successfully read twitterapi.properties")
 
