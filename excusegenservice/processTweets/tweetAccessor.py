@@ -5,11 +5,18 @@ from django.conf import settings
 import os
 import time
 
-def getTweets(latitude, longitude, logger):
+def getTweets(latitude, longitude, keywords, logger):
   
-  returnMessage = "A server error occured in tweetAccessor.getTweets"
+  returnDict = {}
+  returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
 
   try:
+
+    keywordString = ""
+    for word in keywords:
+      keywordString = keywordString + word + 
+
+    logger.debug("tweetAccessor.getTweets - keywords: ")
 
     path = settings.PROJECT_ROOT + "/config/twitterapi.properties"
 
@@ -20,9 +27,9 @@ def getTweets(latitude, longitude, logger):
     logger.debug("tweetAccessor.getTweets - Successfully read twitterapi.properties")
 
     tso = TwitterSearchOrder()
-    tso.setKeywords(['sick'])
+    tso.setKeywords(['sick+OR+flu+OR+cold'])
     tso.setLanguage('en')
-    tso.setGeocode(latitude, longitude, 5, False)
+    tso.setGeocode(latitude, longitude, 25, False)
     tso.setCount(100)
     tso.setIncludeEntities(False)
     
@@ -54,9 +61,9 @@ def getTweets(latitude, longitude, logger):
         
     elapsedTime = time.time() - startTime
         
-    returnMessage = "Found " + str(ctr) + " tweets containing the word \"sick\" within 5 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
-
-    logger.debug("tweetAccessor.getTweets - " + returnMessage)
+    returnDict["returnMessage"] = "Found " + str(ctr) + " tweets containing the word \"sick\" OR \"cold\" OR \"flu\" within 25 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
+    returnDict["tweets"] = results
+    logger.debug("tweetAccessor.getTweets - Found " + str(ctr) + " tweets")
 
   except IOError, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
@@ -65,4 +72,4 @@ def getTweets(latitude, longitude, logger):
   except Exception, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
   finally:
-    return returnMessage
+    return returnDict
