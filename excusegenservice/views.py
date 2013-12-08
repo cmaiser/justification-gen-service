@@ -8,6 +8,7 @@ import re
 
 from excusegenservice.processTweets.locationResolver import resolveLocation
 from excusegenservice.processTweets.tweetAccessor import getTweets
+from excusegenservice.processTweets.tweetAccessor import processTweets
 
 logger = logging.getLogger("excusegenservice")
 
