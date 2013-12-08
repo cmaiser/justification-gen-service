@@ -52,7 +52,7 @@ def getTweets(latitude, longitude, logger):
 	if "geo" in tweet.keys():
 	  result['geo']  = tweet['geo']
 	if "location" in tweet.keys():
-	  result['location'] tweet['location']
+	  result['location'] = tweet['location']
 	  
         results.append(result)
 
