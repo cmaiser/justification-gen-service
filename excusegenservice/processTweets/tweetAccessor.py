@@ -5,16 +5,12 @@ from django.conf import settings
 import os
 import time
 
-def getTweets(latitude, longitude, keywords, logger):
+def getTweets(latitude, longitude, logger):
   
   returnDict = {}
   returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
 
   try:
-
-    keywordString = ""
-    for word in keywords:
-      keywordString = keywordString + word + 
 
     logger.debug("tweetAccessor.getTweets - keywords: ")
 
