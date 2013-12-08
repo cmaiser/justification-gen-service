@@ -88,7 +88,7 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
     returnDict["returnMessage"] = "Found " + str(ctr) + " tweets containing the word \"sick\" OR \"cold\" OR \"flu\" within 25 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
     returnDict["tweets"] = results
     logger.debug("tweetAccessor.getTweets - Found " + str(ctr) + " tweets")
-    logger.debug("tweetAccessor.getTweets - " + metaData["x-rate-limit-remaining"] + "/180 tweets remaining")
+    logger.debug("tweetAccessor.getTweets - " + metaData["x-rate-limit-remaining"] + "/180 queries remaining this block")
 
   except IOError, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
@@ -99,7 +99,9 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
   finally:
     return returnDict
 
-def tweetExcuseGenerator(tweets, keywords, logger):
+def processTweets(tweets, keywords, logger):
+  
+  logger.debug("tweetAccessor.processTweets accessed")
   for tweet in tweets:
     tokens = nltk.word_tokenize(tweet["text"])
     taggedTokens = nltk.pos_tag(tokens)

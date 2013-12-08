@@ -69,7 +69,7 @@ def generateExcuses(request):
       keywords = ["sick", "cold", "flu"]
       tweetResults = getTweets(latitude, longitude, keywords, 500, 25, logger)
       
-      tweetExcuseGenerator(tweetResults["tweets"], keywords, logger)
+      processTweets(tweetResults["tweets"], keywords, logger)
       
       return HttpResponse(json.dumps(tweetResults))
 
