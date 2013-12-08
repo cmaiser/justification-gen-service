@@ -80,7 +80,7 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
         if ctr == tweetLimit:
 	  break
 	  
-	processTweets(results, keywords, logger)
+    processTweets(results, keywords, logger)
         
     elapsedTime = time.time() - startTime
     
