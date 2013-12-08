@@ -45,7 +45,7 @@ def getTweets(latitude, longitude, logger):
     for tweet in ts.searchTweetsIterable(tso):
 
 	result = {}
-	result['user'] = tweet['user']['screen_name']
+	result['user'] = "@" + tweet['user']['screen_name']
 	result['text'] = tweet['text']
 	result['date'] = tweet['created_at']
 	
@@ -62,10 +62,13 @@ def getTweets(latitude, longitude, logger):
 	  break
         
     elapsedTime = time.time() - startTime
+    
+    metaData = ts.getMetaData()
         
     returnDict["returnMessage"] = "Found " + str(ctr) + " tweets containing the word \"sick\" OR \"cold\" OR \"flu\" within 25 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
     returnDict["tweets"] = results
     logger.debug("tweetAccessor.getTweets - Found " + str(ctr) + " tweets")
+    logger.debug("tweetAccessor.getTweets - " + metadata["x-rate-limit-remaining"] + "/180 tweets remaining")
 
   except IOError, e:
     logger.error("tweetAccessor.getTweets - " + e.errno)
