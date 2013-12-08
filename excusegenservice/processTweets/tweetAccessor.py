@@ -48,7 +48,12 @@ def getTweets(latitude, longitude, logger):
 	result['user'] = tweet['user']['screen_name']
 	result['text'] = tweet['text']
 	result['date'] = tweet['created_at']
-	result['geo']  = tweet['geo']
+	
+	if "geo" in tweet.keys():
+	  result['geo']  = tweet['geo']
+	if "location" in tweet.keys():
+	  result['location'] tweet['location']
+	  
         results.append(result)
 
         ctr = ctr + 1
