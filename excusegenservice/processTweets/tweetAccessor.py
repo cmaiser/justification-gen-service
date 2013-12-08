@@ -106,8 +106,8 @@ def processTweets(tweets, keywords, logger):
     tokens = nltk.word_tokenize(tweet["text"])
     taggedTokens = nltk.pos_tag(tokens)
     
-    logger.debug(tweet["text"])
-    logger.debug(str(taggedTokens))
+    #logger.debug(tweet["text"])
+    #logger.debug(str(taggedTokens))
     
     
     
