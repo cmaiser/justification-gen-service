@@ -63,7 +63,7 @@ def getTweets(latitude, longitude, logger):
         
     elapsedTime = time.time() - startTime
     
-    metaData = ts.getMetaData()
+    metaData = ts.getMetadata()
         
     returnDict["returnMessage"] = "Found " + str(ctr) + " tweets containing the word \"sick\" OR \"cold\" OR \"flu\" within 25 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
     returnDict["tweets"] = results
