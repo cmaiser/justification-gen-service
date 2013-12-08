@@ -4,7 +4,7 @@ import os
 import time
 import re
 
-def getTweets(latitude, longitude, keywords, tweetLimit, logger):
+def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
   
   returnDict = {}
   returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
@@ -34,9 +34,9 @@ def getTweets(latitude, longitude, keywords, tweetLimit, logger):
 
     #create TwitterSeachOrder and set args
     tso = TwitterSearchOrder()
-    tso.setKeywords(['sick+OR+flu+OR+cold'])
+    tso.setKeywords([keywordString])
     tso.setLanguage('en')
-    tso.setGeocode(latitude, longitude, 25, False)
+    tso.setGeocode(latitude, longitude, distance, False)
     tso.setCount(100)
     tso.setIncludeEntities(False)
     
@@ -69,7 +69,7 @@ def getTweets(latitude, longitude, keywords, tweetLimit, logger):
 	  result['location'] = tweet['location']
 	  
 	#filter out retweets(RT)  
-	isRT re.match(r'RT', result['text'])
+	isRT = re.match(r'RT', result['text'])
 	
 	if not isRT:
 	  results.append(result)
