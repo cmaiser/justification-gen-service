@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import logging
 import json
+import re
 
 from excusegenservice.processTweets.locationResolver import resolveLocation
 from excusegenservice.processTweets.tweetAccessor import getTweets
