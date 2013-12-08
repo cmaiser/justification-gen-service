@@ -1,11 +1,10 @@
-#!/usr/bin/python
-
 from TwitterSearch import *
 from django.conf import settings
 import os
 import time
+import re
 
-def getTweets(latitude, longitude, logger):
+def getTweets(latitude, longitude, keywords, tweetLimit, logger):
   
   returnDict = {}
   returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
@@ -13,15 +12,27 @@ def getTweets(latitude, longitude, logger):
   try:
 
     logger.debug("tweetAccessor.getTweets - keywords: ")
-
+    
+    #get path to properties file
     path = settings.PROJECT_ROOT + "/config/twitterapi.properties"
 
     logger.debug("tweetAccessor.getTweets - file path: " + path)
 
+    #read properties into properties dict
     properties = dict(line.strip().split('=') for line in open(path))
 
     logger.debug("tweetAccessor.getTweets - Successfully read twitterapi.properties")
+    
+    #build keyword string
+    keywordString = ""
+    for i in range(len(keywords)):      
+      keywordString = keywordString + keywords[i]
+      if i + 1 < len(keywords):
+	keywordString = keywordString + "+OR+"
 
+    logger.debug("tweetAccessor.getTweets - Using keywords " + keywordString)
+
+    #create TwitterSeachOrder and set args
     tso = TwitterSearchOrder()
     tso.setKeywords(['sick+OR+flu+OR+cold'])
     tso.setLanguage('en')
@@ -29,6 +40,7 @@ def getTweets(latitude, longitude, logger):
     tso.setCount(100)
     tso.setIncludeEntities(False)
     
+    #set TwitterSearch authentication args from properties
     ts = TwitterSearch(
       consumer_key = properties["consumer_key"],
       consumer_secret = properties["consumer_secret"],
@@ -38,10 +50,12 @@ def getTweets(latitude, longitude, logger):
 
     logger.debug("tweetAccessor.getTweets - Searching Twitter")
     
+    
     startTime = time.time()
     results = []
     ctr = 0
     
+    #iterate through tweets until tweetLimit reached
     for tweet in ts.searchTweetsIterable(tso):
 
 	result = {}
@@ -54,15 +68,20 @@ def getTweets(latitude, longitude, logger):
 	if "location" in tweet.keys():
 	  result['location'] = tweet['location']
 	  
-        results.append(result)
+	#filter out retweets(RT)  
+	isRT re.match(r'RT', result['text'])
+	
+	if not isRT:
+	  results.append(result)
 
         ctr = ctr + 1
         
-        if ctr == 200:
+        if ctr == tweetLimit:
 	  break
         
     elapsedTime = time.time() - startTime
     
+    #contains metadata from last query
     metaData = ts.getMetadata()
         
     returnDict["returnMessage"] = "Found " + str(ctr) + " tweets containing the word \"sick\" OR \"cold\" OR \"flu\" within 25 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
