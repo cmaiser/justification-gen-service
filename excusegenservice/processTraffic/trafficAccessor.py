@@ -62,4 +62,4 @@ def getMapquestKey(logger):
   except Exception, e:
     logger.error("trafficAccessor.getMapquestKey - " + e.errno)
   finally:
-    return properties["key"] || "fail"
+    return properties["key"]
