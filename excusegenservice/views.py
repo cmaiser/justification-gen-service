@@ -9,6 +9,7 @@ import re
 from excusegenservice.processTweets.locationResolver import resolveLocation
 from excusegenservice.processTweets.tweetAccessor import getTweets
 from excusegenservice.processTweets.tweetAccessor import processTweets
+from excusegenservice.processTraffic.trafficAccessor import getTraffic
 
 logger = logging.getLogger("excusegenservice")
 
@@ -61,6 +62,9 @@ def locationResolver(request):
 @csrf_exempt
 def generateExcuses(request):
   if request.is_ajax():
+    
+    results = {}
+    
     try:
       
       #get POST data
@@ -68,9 +72,10 @@ def generateExcuses(request):
       longitude = float(request.POST['lon'])
 
       keywords = ["sick", "cold", "flu"]
-      tweetResults = getTweets(latitude, longitude, keywords, 500, 25, logger)
+      results["tweetResults"] = getTweets(latitude, longitude, keywords, 500, 25, logger)
+      results["trafficResults"] = getTraffic(latitude, longitude, 25, logger)
       
-      return HttpResponse(json.dumps(tweetResults))
+      return HttpResponse(json.dumps(results))
 
     except Exception, e:
       logger.error("views.generateExcuses - GENERAL EXCEPTION")

@@ -11,8 +11,6 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
   returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
 
   try:
-
-    logger.debug("tweetAccessor.getTweets - keywords: ")
     
     #get path to properties file
     path = settings.PROJECT_ROOT + "/config/twitterapi.properties"
