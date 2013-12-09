@@ -5,6 +5,7 @@ import urllib2
 import logging
 import json
 import re
+import time
 
 from excusegenservice.processTweets.locationResolver import resolveLocation
 from excusegenservice.processTweets.tweetAccessor import getTweets
@@ -71,9 +72,15 @@ def generateExcuses(request):
       latitude = float(request.POST['lat'])
       longitude = float(request.POST['lon'])
 
+      startTime = time.time()
+
       keywords = ["sick", "cold", "flu"]
       results["tweetResults"] = getTweets(latitude, longitude, keywords, 500, 25, logger)
       results["trafficResults"] = getTraffic(latitude, longitude, 25, logger)
+      
+      elapsedTime = time.time() - startTime
+      
+      results["elapsedTime"] = 'Time Elapsed: %.2f seconds' % elapsedTime
       
       return HttpResponse(json.dumps(results))
 

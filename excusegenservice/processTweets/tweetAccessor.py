@@ -1,7 +1,6 @@
 from TwitterSearch import *
 from django.conf import settings
 import os
-import time
 import re
 import nltk
 
@@ -49,8 +48,6 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
 
     logger.debug("tweetAccessor.getTweets - Searching Twitter")
     
-    
-    startTime = time.time()
     results = []
     ctr = 0
     
@@ -79,13 +76,10 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
 	  break
 	  
     #processTweets(results, keywords, logger)
-        
-    elapsedTime = time.time() - startTime
     
     #contains metadata from last query
     metaData = ts.getMetadata()
         
-    returnDict["returnMessage"] = "Found " + str(ctr) + " tweets containing the word \"sick\" OR \"cold\" OR \"flu\" within 25 miles of your location! (Limiting results to 2 queries (200 tweets) due to <a href=\"https://dev.twitter.com/docs/rate-limiting/1.1\">Twitter rate limits</a>)<br />Elapsed time: " + str(elapsedTime) + " seconds"
     returnDict["tweets"] = results
     logger.debug("tweetAccessor.getTweets - Found " + str(ctr) + " tweets")
     logger.debug("tweetAccessor.getTweets - " + metaData["x-rate-limit-remaining"] + "/180 queries remaining this block")
