@@ -33,7 +33,7 @@ def resolveLocation(latitude, longitude, logger):
     
       #probably state
       if component["types"][0] == "administrative_area_level_1":
-	returnList["state"] = component["long_name"]
+	returnList["state"] = component["short_name"]
     
       #probably country
       if component["types"][0] == "country":
