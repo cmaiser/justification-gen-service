@@ -14,6 +14,7 @@ from excusegenservice.processTweets.tweetAccessor import getTweets
 from excusegenservice.processTweets.tweetAccessor import processTweets
 from excusegenservice.processTraffic.trafficAccessor import getTraffic
 from excusegenservice.processWeather.weatherAccessor import getWeatherAlerts
+from excusegenservice.processHolidays.holidayAccessor import getHolidays
 
 logger = logging.getLogger("excusegenservice")
 
@@ -76,6 +77,9 @@ def generateExcuses(request):
       longitude = float(request.POST['lon'])
       cityName = str(request.POST['cityName'])
       stateShortName = str(request.POST['stateShortName'])
+      day = str(request.POST['day'])
+      month = str(request.POST['month'])
+      year = str(request.POST['year'])
       
       properties = getProperties()
 
@@ -85,6 +89,7 @@ def generateExcuses(request):
       results["tweetResults"] = getTweets(latitude, longitude, keywords, 500, 25, logger, properties)
       results["trafficResults"] = getTraffic(latitude, longitude, 25, logger, properties)
       results["weatherAlerts"] = getWeatherAlerts(cityName, stateShortName, properties, logger)
+      results["holidays"] = getHolidays(day, month, year, logger)
       
       elapsedTime = time.time() - startTime
       
