@@ -12,6 +12,7 @@ from excusegenservice.processTweets.locationResolver import resolveLocation
 from excusegenservice.processTweets.tweetAccessor import getTweets
 from excusegenservice.processTweets.tweetAccessor import processTweets
 from excusegenservice.processTraffic.trafficAccessor import getTraffic
+from excusegenservice.processWeather.weatherAccessor import getWeatherAlerts
 
 logger = logging.getLogger("excusegenservice")
 
@@ -82,6 +83,7 @@ def generateExcuses(request):
       keywords = ["sick", "cold", "flu"]
       results["tweetResults"] = getTweets(latitude, longitude, keywords, 500, 25, logger, properties)
       results["trafficResults"] = getTraffic(latitude, longitude, 25, logger, properties)
+      results["weatherAlerts"] = getWeatherAlerts(cityName, stateShortName, properties, logger)
       
       elapsedTime = time.time() - startTime
       
@@ -109,6 +111,6 @@ def getProperties():
   #read properties into properties dict
   properties = dict(line.strip().split('=') for line in open(path))
 
-  logger.debug("views.getPropertie - Successfully read authentication.properties")
+  logger.debug("views.getProperties - Successfully read authentication.properties")
     
   return properties
