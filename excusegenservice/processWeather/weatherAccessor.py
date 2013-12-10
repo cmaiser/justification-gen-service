@@ -16,7 +16,3 @@ def getWeatherAlerts(cityName, stateShortName, properties, logger):
     logger.error('trafficAccessor.getTraffic URLError = ' + str(e.reason))
   except httplib.HTTPException, e:
     logger.error('trafficAccessor.getTraffic HTTPException')
-
-
-
-  http://api.wunderground.com/api/58a65c6b2930d8ce/alerts/q/VA/Arlington.json
