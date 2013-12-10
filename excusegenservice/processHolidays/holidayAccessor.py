@@ -2,7 +2,10 @@ import urllib2
 import json
 
 def getHolidays(day, month, year, logger):
+  
   url = "http://holidayapi.com/v1/holidays?country=US&year=" + year + "&month=" + month + "&day=" + day
+    
+  logger.debug('holidayAccessor.getHolidays - Attempting to access' + url)
 
   try:
 
