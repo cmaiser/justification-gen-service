@@ -1,26 +1,15 @@
 from TwitterSearch import *
-from django.conf import settings
 import os
 import re
 import nltk
 
-def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
+def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger, properties):
   
   returnDict = {}
   returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
 
   try:
-    
-    #get path to properties file
-    path = settings.PROJECT_ROOT + "/config/twitterapi.properties"
 
-    logger.debug("tweetAccessor.getTweets - file path: " + path)
-
-    #read properties into properties dict
-    properties = dict(line.strip().split('=') for line in open(path))
-
-    logger.debug("tweetAccessor.getTweets - Successfully read twitterapi.properties")
-    
     #build keyword string
     keywordString = ""
     for i in range(len(keywords)):      
@@ -40,10 +29,10 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger):
     
     #set TwitterSearch authentication args from properties
     ts = TwitterSearch(
-      consumer_key = properties["consumer_key"],
-      consumer_secret = properties["consumer_secret"],
-      access_token = properties["access_token"],
-      access_token_secret = properties["access_token_secret"]
+      consumer_key = properties["twitter_consumer_key"],
+      consumer_secret = properties["twitter_consumer_secret"],
+      access_token = properties["twitter_access_token"],
+      access_token_secret = properties["twitter_access_token_secret"]
     )
 
     logger.debug("tweetAccessor.getTweets - Searching Twitter")

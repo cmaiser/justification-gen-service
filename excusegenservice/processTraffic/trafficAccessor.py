@@ -1,10 +1,9 @@
 import urllib2
 import json
-from django.conf import settings
 import os
 
-def getTraffic(latitude, longitude, milesFromCenter, logger):
-  url = "http://www.mapquestapi.com/traffic/v2/incidents?key=" + getMapquestKey(logger) + "&boundingBox=" + getBoundingBox(latitude, longitude, milesFromCenter, logger) + "&filters=construction,incidents&inFormat=kvp&outFormat=json"
+def getTraffic(latitude, longitude, milesFromCenter, logger, properties):
+  url = "http://www.mapquestapi.com/traffic/v2/incidents?key=" + properties["mapquest_key"] + "&boundingBox=" + getBoundingBox(latitude, longitude, milesFromCenter, logger) + "&filters=construction,incidents&inFormat=kvp&outFormat=json"
 
   try:
 
@@ -43,23 +42,3 @@ def getBoundingBox(latitude, longitude, milesFromCenter, logger) :
   box = str(ulLat) + "," + str(ulLon) + "," + str(lrLat) + "," + str(lrLon)
 
   return box
-
-def getMapquestKey(logger):
-      
-  try:
-    #get path to properties file
-    path = settings.PROJECT_ROOT + "/config/mapquestapi.properties"
-
-    logger.debug("trafficAccessor.getMapquestKey - file path: " + path)
-
-    #read properties into properties dict
-    properties = dict(line.strip().split('=') for line in open(path))
-
-    logger.debug("trafficAccessor.getMapquestKey - Successfully read mapquestapi.properties")
-
-  except IOError, e:
-    logger.error("trafficAccessor.getMapquestKey - " + e.errno)
-  except Exception, e:
-    logger.error("trafficAccessor.getMapquestKey - " + e.errno)
-  finally:
-    return properties["key"]

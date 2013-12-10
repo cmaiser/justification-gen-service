@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
   
 import urllib2
 import logging
@@ -74,12 +75,13 @@ def generateExcuses(request):
       cityName = str(request.POST['cityName'])
       stateShortName = str(request.POST['stateShortName'])
       
+      properties = getProperties()
 
       startTime = time.time()
 
       keywords = ["sick", "cold", "flu"]
-      results["tweetResults"] = getTweets(latitude, longitude, keywords, 500, 25, logger)
-      results["trafficResults"] = getTraffic(latitude, longitude, 25, logger)
+      results["tweetResults"] = getTweets(latitude, longitude, keywords, 500, 25, logger, properties)
+      results["trafficResults"] = getTraffic(latitude, longitude, 25, logger, properties)
       
       elapsedTime = time.time() - startTime
       
@@ -94,3 +96,19 @@ def generateExcuses(request):
   else:
     logger.error("generateExcuses - Request not ajax")
     raise Http404
+
+#function to read in properties file
+#for api authentication
+def getProperties():
+      
+  #get path to properties file
+  path = settings.PROJECT_ROOT + "/config/authentication.properties"
+  
+  logger.debug("views.getProperties - file path: " + path)
+
+  #read properties into properties dict
+  properties = dict(line.strip().split('=') for line in open(path))
+
+  logger.debug("views.getPropertie - Successfully read authentication.properties")
+    
+  return properties
