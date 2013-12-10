@@ -71,6 +71,9 @@ def generateExcuses(request):
       #get POST data
       latitude = float(request.POST['lat'])
       longitude = float(request.POST['lon'])
+      cityName = str(request.POST['cityName'])
+      stateShortName = str(request.POST['stateShortName'])
+      
 
       startTime = time.time()
 
