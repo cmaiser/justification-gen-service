@@ -5,7 +5,7 @@ from django.utils import simplejson
   
 import urllib2
 import logging
-#import json
+import json
 import re
 import time
 
@@ -49,7 +49,7 @@ def locationResolver(request):
       if location["errorMsg"] == "":
 	logger.debug(location["allOptions"])
 	del location["allOptions"]
-	return HttpResponse(simplejson.dumps(location))
+	return HttpResponse(json.dumps(location))
       else:
 	logger.error(location["errorMsg"])
 	return HttpResponse(location["errorMsg"])
