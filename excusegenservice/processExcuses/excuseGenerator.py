@@ -6,9 +6,9 @@ def generateExcuses(tweets, keywords, traffic, weather, holidays, logger):
   
   #proces health excuses
   
-  results["excuses"]["healhExcuse"]["tweets"] = tweets
-  results["excuses"]["healhExcuse"]["keywords"] = keywords
-  results["excuses"]["healhExcuse"]["text"] = "This is the health related excuse."
+  results["excuses"]["healthExcuse"]["tweets"] = tweets
+  results["excuses"]["healthExcuse"]["keywords"] = keywords
+  results["excuses"]["healthExcuse"]["text"] = "This is the health related excuse."
   
   #process traffic excuses
   
@@ -22,7 +22,7 @@ def generateExcuses(tweets, keywords, traffic, weather, holidays, logger):
   
   #process holiday excuse
   
-  results["excuses"]["holidyExcuse"]["holidays"] = holidays
+  results["excuses"]["holidayExcuse"]["holidays"] = holidays
   results["excuses"]["holidayExcuse"]["text"] = "This is the holiday related excuse."
   
   return results
