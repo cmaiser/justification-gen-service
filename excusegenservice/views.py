@@ -15,7 +15,7 @@ from excusegenservice.processTweets.tweetAccessor import processTweets
 from excusegenservice.processTraffic.trafficAccessor import getTraffic
 from excusegenservice.processWeather.weatherAccessor import getWeatherAlerts
 from excusegenservice.processHolidays.holidayAccessor import getHolidays
-from excusegenservice.processExcuses.excuseGenerator import generateExcuses
+from excusegenservice.processExcuses.excuseGenerator import generateExcusesFromData
 
 logger = logging.getLogger("excusegenservice")
 
@@ -91,11 +91,11 @@ def generateExcuses(request):
       traffic  = getTraffic(latitude, longitude, 25, logger, properties)
       weather  = getWeatherAlerts(cityName, stateShortName, properties, logger)
       holidays = getHolidays(day, month, year, logger)
-      
+
       logger.debug("Getting final results")
-      
+
       #generate excuses and put it all together
-      results = generateExcuses(tweets, keywords, traffic, weather, holidays, logger)
+      results = generateExcusesFromData(tweets, keywords, traffic, weather, holidays, logger)
       
       logger.debug("Results generated")
       

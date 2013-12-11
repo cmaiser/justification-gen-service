@@ -1,4 +1,4 @@
-def generateExcuses(tweets, keywords, traffic, weather, holidays, logger):
+def generateExcusesFromData(tweets, keywords, traffic, weather, holidays, logger):
   
   logger.debug("excuseGenerator - generateExcuses accessed")
   
