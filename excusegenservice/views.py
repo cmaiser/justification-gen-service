@@ -92,6 +92,8 @@ def generateExcuses(request):
       weather  = getWeatherAlerts(cityName, stateShortName, properties, logger)
       holidays = getHolidays(day, month, year, logger)
       
+      logger.debug("Getting final results")
+      
       #generate excuses and put it all together
       results = generateExcuses(tweets, keywords, traffic, weather, holidays, logger)
       
