@@ -1,4 +1,7 @@
 def generateExcuses(tweets, keywords, traffic, weather, holidays, logger):
+  
+  logger.debug("excuseGenerator - generateExcuses accessed")
+  
   results = {}
   
   results["excuses"] = {"healthExcuse": {}, "trafficExcuse": {}, "weatherExcuse": {}, "holidayExcuse": {}}

@@ -95,6 +95,8 @@ def generateExcuses(request):
       #generate excuses and put it all together
       results = generateExcuses(tweets, keywords, traffic, weather, holidays, logger)
       
+      logger.debug("Results generated")
+      
       elapsedTime = time.time() - startTime
       
       results["metadata"]["elapsedTime"] = 'Time Elapsed: %.2f seconds' % elapsedTime
