@@ -3,25 +3,29 @@ import os
 import re
 import nltk
 
-def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger, properties):
+def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties):
   
   returnDict = {}
   returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
 
   try:
 
-    #build keyword string
-    keywordString = ""
-    for i in range(len(keywords)):      
-      keywordString = keywordString + keywords[i]
-      if i + 1 < len(keywords):
-	keywordString = keywordString + "+OR+"
+    if andOr == "or":
+      #build keyword string
+      keywordString = ""
+      for i in range(len(keywords)):      
+	keywordString = keywordString + keywords[i]
+	if i + 1 < len(keywords):
+	  keywordString = keywordString + "+OR+"
 
     logger.debug("tweetAccessor.getTweets - Using keywords " + keywordString)
 
     #create TwitterSeachOrder and set args
     tso = TwitterSearchOrder()
-    tso.setKeywords([keywordString])
+    if andOr == "or":
+      tso.setKeywords([keywordString])
+    elif andOr == "and"
+      tso.setKeywords(keywords)
     tso.setLanguage('en')
     tso.setGeocode(latitude, longitude, distance, False)
     tso.setCount(100)
@@ -38,15 +42,15 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger, prope
     logger.debug("tweetAccessor.getTweets - Searching Twitter")
     
     results = []
-    ctr = 0
     
-    #iterate through tweets until tweetLimit reached
-    for tweet in ts.searchTweetsIterable(tso):
+    tweets = ts.searchTweetsIterable(tso)
+    for tweet in tweets:
 
 	result = {}
 	result['user'] = "@" + tweet['user']['screen_name']
 	result['text'] = tweet['text']
 	result['date'] = tweet['created_at']
+	result['keywords'] = keywords
 	
 	if "geo" in tweet.keys():
 	  result['geo']  = tweet['geo']
@@ -58,18 +62,11 @@ def getTweets(latitude, longitude, keywords, tweetLimit, distance, logger, prope
 	
 	if not isRT:
 	  results.append(result)
-
-        ctr = ctr + 1
-        
-        if ctr == tweetLimit:
-	  break
-	  
-    #processTweets(results, keywords, logger)
     
     #contains metadata from last query
     metaData = ts.getMetadata()
         
-    returnDict["tweets"] = results
+    returnDict = results
     logger.debug("tweetAccessor.getTweets - Found " + str(ctr) + " tweets")
     logger.debug("tweetAccessor.getTweets - " + metaData["x-rate-limit-remaining"] + "/180 queries remaining this block")
 

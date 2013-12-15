@@ -84,10 +84,20 @@ def generateExcuses(request):
 
       startTime = time.time()
 
-      keywords = ["sick", "cold", "flu"]
+      
       
       #get the data
-      tweets   = getTweets(latitude, longitude, keywords, 500, 25, logger, properties)
+      keywords = ["sick", "flu"]
+      tweets   = getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
+      keywords = ["sick", "cold"]
+      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      keywords = ["call", "in", "sick"]
+      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      keywords = ["disease", "fever", "virus", "sizurp", "sizzurp"]
+      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
+      keywords = ["projectile", "vomit"]
+      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      
       traffic  = getTraffic(latitude, longitude, 25, logger, properties)
       weather  = getWeatherAlerts(cityName, stateShortName, properties, logger)
       holidays = getHolidays(day, month, year, logger)
