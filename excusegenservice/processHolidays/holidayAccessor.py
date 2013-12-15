@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import re
 from django.conf import settings
 
@@ -16,6 +14,6 @@ def getHolidays(day, month, year, logger):
     
     if matchObj:
       if matchObj.group(1) == year and matchObj.group(2) == month and matchObj.group(3) == day:
-        holidayList.add(matchObj.group(4))
+        holidayList.append(matchObj.group(4))
 
   return holidayList
