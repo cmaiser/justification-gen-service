@@ -88,7 +88,7 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
     weatherExcuse = "It is too nice of a day out."
   
   results["excuses"]["weatherExcuse"]["weather"] = weather
-  results["excuses"]["weatherExcuse"]["text"] = "This is the weather related excuse."
+  results["excuses"]["weatherExcuse"]["text"] = weatherExcuse
   
   #process holiday excuse
   
