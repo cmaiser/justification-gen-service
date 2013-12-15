@@ -67,7 +67,7 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   logger.debug("Generating excuse from " + str(len(traffic["incidents"])) + " Traffic Alerts!")
   
   
-  topIncident
+  topIncident = {}
   firstIteration = True
   for incident in traffic["incidents"]:
     if firstIteration:
