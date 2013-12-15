@@ -26,7 +26,11 @@ def generateExcusesFromData(tweets, keywords, traffic, weather, holidays, logger
   #process holiday excuse
   
   results["excuses"]["holidayExcuse"]["holidays"] = holidays
-  results["excuses"]["holidayExcuse"]["text"] = "This is the holiday related excuse."
+  
+  if len(holidays) > 0:
+    results["excuses"]["holidayExcuse"]["text"] = "Today is " + holidays[0] + "!"
+  else:
+    results["excuses"]["holidayExcuse"]["text"] = "Today isn't a holiday, and that makes me sad."
   
   return results
 
