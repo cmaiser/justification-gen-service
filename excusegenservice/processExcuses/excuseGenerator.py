@@ -32,7 +32,7 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   
   word = ""
   
-  if len(keywordsUsed > 3):
+  if len(topKeywords > 3):
     keywordsUsed = [topKeywords[0], topKeywords[1], topKeywords[2], topKeywords[3]]
     word = choice(keywordsUsed)
   else:
