@@ -3,7 +3,7 @@
 import re
 from django.conf import settings
 
-def getHolidays(day, month, year):
+def getHolidays(day, month, year, logger):
   
   holidayList = []
     
