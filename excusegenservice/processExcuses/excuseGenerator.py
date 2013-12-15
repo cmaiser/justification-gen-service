@@ -29,14 +29,9 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
 	
   topKeywords = sorted(masterKeywordCounter, key=masterKeywordCounter.get)
   topKeywords.reverse()
-  
-  word = ""
-  
-  if len(topKeywords) > 3:
-    keywordsUsed = [topKeywords[0], topKeywords[1], topKeywords[2], topKeywords[3]]
-    word = choice(keywordsUsed)
-  else:
-    word = "ill"
+
+  word = choice(topKeywords)
+
   sentence = ""
   
   logger.debug("Using keyword: " + word)
@@ -80,11 +75,17 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   logger.debug("Top Incident: " + str(topIncident["severity"]) + " " + topIncident["shortDesc"])
   
   results["excuses"]["trafficExcuse"]["traffic"] = traffic
-  results["excuses"]["trafficExcuse"]["text"] = topIncident["shortDesc"]
+  results["excuses"]["trafficExcuse"]["text"] = "I am stuck in my car.  " + topIncident["shortDesc"]
   
   #process weather excuses
   
   logger.debug("Generating excuse from " + str(len(weather["alerts"])) + " Weather Alerts!")
+  
+  weatherExcuse = ""
+  if len(weather["alerts"]) > 0:
+    weatherExcuse = weather["alerts"][0]["description"]
+  else:
+    weatherExcuse = "It is too nice of a day out."
   
   results["excuses"]["weatherExcuse"]["weather"] = weather
   results["excuses"]["weatherExcuse"]["text"] = "This is the weather related excuse."
