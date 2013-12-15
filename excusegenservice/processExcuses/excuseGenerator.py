@@ -16,7 +16,7 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   results["excuses"]["healthExcuse"]["tweets"] = tweets
   
   logger.debug("Generating excuse from " + str(len(tweets)) + " Tweets.")
-  
+
   #for tweet in tweets:
     #for keyword in tweet.keywords:
       #bob = ""
@@ -26,8 +26,10 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
 	#masterKeywordCounter[keyword] += len(matchObj)
       #else:
 	#masterKeywordCounter[keyword] = len(matchObj)
-  
+
   results["excuses"]["healthExcuse"]["text"] = "This is the health related excuse."
+  
+  logger.debug("WTF")
   
   #process traffic excuses
   
