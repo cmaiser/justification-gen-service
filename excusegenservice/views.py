@@ -69,7 +69,7 @@ def locationResolver(request):
 def generateExcuses(request):
   if request.is_ajax():
     
-    try:
+    #try:
       
       #get POST data
       latitude       = float(request.POST['lat'])
@@ -117,9 +117,9 @@ def generateExcuses(request):
       
       return HttpResponse(json.dumps(results))
 
-    except Exception, e:
-      logger.error("views.generateExcuses - GENERAL EXCEPTION")
-      return HttpResponse("Error: bad request!")
+    #except Exception, e:
+      #logger.error("views.generateExcuses - GENERAL EXCEPTION")
+      #return HttpResponse("Error: bad request!")
       
   else:
     logger.error("generateExcuses - Request not ajax")
