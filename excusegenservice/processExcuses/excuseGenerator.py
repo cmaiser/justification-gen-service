@@ -18,7 +18,7 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   logger.debug("Generating excuse from " + str(len(tweets)) + " Tweets.")
   
   for tweet in tweets:
-    for keyword in tweets.keywords:
+    for keyword in tweet.keywords:
       
       logger.debug("Keyword " + keyword + ", Text " + tweet.text)
       matchObj = re.findall(keyword, tweet.text)
