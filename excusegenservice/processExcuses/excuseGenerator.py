@@ -1,4 +1,6 @@
-def generateExcusesFromData(tweets, keywords, traffic, weather, holidays, logger):
+import re
+
+def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   
   logger.debug("excuseGenerator - generateExcuses accessed")
   
@@ -9,8 +11,18 @@ def generateExcusesFromData(tweets, keywords, traffic, weather, holidays, logger
   
   #proces health excuses
   
+  masterKeywordCounter = {}
+  
   results["excuses"]["healthExcuse"]["tweets"] = tweets
-  results["excuses"]["healthExcuse"]["keywords"] = keywords
+  
+  for tweet in tweets:
+    for keyword in tweets.keywords:
+      matchObj = re.findall(keyword, tweet.text)
+      if keyword in masterKeywordCounter.keys():
+	masterKeywordCounter[keyword] += len(matchObj)
+      else:
+	masterKeywordCounter[keyword] = len(matchObj)
+  
   results["excuses"]["healthExcuse"]["text"] = "This is the health related excuse."
   
   #process traffic excuses

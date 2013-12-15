@@ -42,9 +42,13 @@ def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties
     logger.debug("tweetAccessor.getTweets - Searching Twitter")
     
     results = []
+    ctr = 0
+    
     
     tweets = ts.searchTweetsIterable(tso)
     for tweet in tweets:
+      
+        ctr = ctr + 1
 
 	result = {}
 	result['user'] = "@" + tweet['user']['screen_name']
@@ -62,6 +66,9 @@ def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties
 	
 	if not isRT:
 	  results.append(result)
+	  
+	if ctr == 100:
+	  break
     
     #contains metadata from last query
     metaData = ts.getMetadata()

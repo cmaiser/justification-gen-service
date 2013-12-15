@@ -84,8 +84,6 @@ def generateExcuses(request):
 
       startTime = time.time()
 
-      
-      
       #get the data
       keywords = ["sick", "flu"]
       tweets   = getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
@@ -105,7 +103,7 @@ def generateExcuses(request):
       logger.debug("Getting final results")
 
       #generate excuses and put it all together
-      results = generateExcusesFromData(tweets, keywords, traffic, weather, holidays, logger)
+      results = generateExcusesFromData(tweets, traffic, weather, holidays, logger)
       
       logger.debug("Results generated")
       
