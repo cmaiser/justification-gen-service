@@ -31,15 +31,21 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   
   #process traffic excuses
   
+  logger.debug("Generating excuse from " + str(len(traffic.incidents)) + " Traffic Alerts!")
+  
   results["excuses"]["trafficExcuse"]["traffic"] = traffic
   results["excuses"]["trafficExcuse"]["text"] = "This is the traffic related excuse."
   
   #process weather excuses
   
+  logger.debug("Generating excuse from " + str(len(weather.alerts)) + " Weather Alerts!")
+  
   results["excuses"]["weatherExcuse"]["weather"] = weather
   results["excuses"]["weatherExcuse"]["text"] = "This is the weather related excuse."
   
   #process holiday excuse
+  
+  logger.debug("Generating excuse from " + str(len(holidays)) + " Holidays!")
   
   results["excuses"]["holidayExcuse"]["holidays"] = holidays
   
