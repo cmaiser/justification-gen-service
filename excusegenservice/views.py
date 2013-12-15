@@ -88,13 +88,17 @@ def generateExcuses(request):
       keywords = ["sick", "flu"]
       tweets   = getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
       keywords = ["sick", "cold"]
-      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      tweets = tweets + newTweets
       keywords = ["call", "in", "sick"]
-      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      tweets = tweets + newTweets
       keywords = ["disease", "fever", "virus", "sizurp", "sizzurp"]
-      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
+      tweets = tweets + newTweets
       keywords = ["projectile", "vomit"]
-      tweets = tweets + getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      tweets = tweets + newTweets
       
       traffic  = getTraffic(latitude, longitude, 25, logger, properties)
       weather  = getWeatherAlerts(cityName, stateShortName, properties, logger)
