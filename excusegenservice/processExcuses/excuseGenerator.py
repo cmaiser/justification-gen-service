@@ -1,4 +1,5 @@
 import re
+from random import choice
 
 def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   
@@ -25,8 +26,34 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
 	masterKeywordCounter[keyword] += len(matchObj)
       else:
 	masterKeywordCounter[keyword] = len(matchObj)
+	
+  topKeywords = sorted(masterKeywordCounter, key=masterKeywordCounter.get)
+  topKeywords.reverse()
+  
+  keywordsUsed = [topKeywords[0], topKeywords[1], topKeywords[2], topKeywords[3]]
+  
+  word = choice(keywordsUsed)
+  sentence = ""
+  
+  if word == "sick":
+    sentence += "I am very " + word + ".  "
+  elif word == "flu":
+    sentence += "I have the " + word + ".  "
+  elif word == "cold":
+    sentence += "I have a " + word + ".  "
+  elif word == "disease":
+    sentence += "I have a " + word + ".  "
+  elif word == "fever":
+    sentence += "I have a " + word + ".  "
+  elif word == "virus":
+    sentence += "I have a " + word + ".  "
+  elif word == "vomit":
+    sentence += "I need to " + word + ".  "
+  else:
+    sentence += "I am under the weather."
 
-  results["excuses"]["healthExcuse"]["text"] = "This is the health related excuse."
+
+  results["excuses"]["healthExcuse"]["text"] = sentence
   results["excuses"]["healthExcuse"]["masterKeywordCounter"] = masterKeywordCounter
   
   #process traffic excuses
