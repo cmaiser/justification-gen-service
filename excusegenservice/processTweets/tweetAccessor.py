@@ -6,7 +6,7 @@ import nltk
 def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties):
   
   returnDict = []
-  returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
+  #returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
 
   try:
 
