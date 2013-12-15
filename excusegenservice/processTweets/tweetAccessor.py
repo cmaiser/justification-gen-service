@@ -18,7 +18,7 @@ def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties
 	if i + 1 < len(keywords):
 	  keywordString = keywordString + "+OR+"
 
-    logger.debug("tweetAccessor.getTweets - Using keywords " + keywordString)
+      logger.debug("tweetAccessor.getTweets - Using keywords " + keywordString)
 
     #create TwitterSeachOrder and set args
     tso = TwitterSearchOrder()
