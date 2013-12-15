@@ -39,6 +39,8 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
     word = "ill"
   sentence = ""
   
+  logger.debug("Using keyword: " + word)
+  
   if word == "sick":
     sentence += "I am very " + word + ".  "
   elif word == "flu":
@@ -64,8 +66,21 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   
   logger.debug("Generating excuse from " + str(len(traffic["incidents"])) + " Traffic Alerts!")
   
+  
+  topIncident
+  firstIteration = True
+  for incident in traffic["incidents"]:
+    if firstIteration:
+      topIncident = incident
+      firstIteration = False
+      continue
+    if incident["severity"] > topIncident["severity"]:
+      topIncident = incident
+  
+  logger.debug("Top Incident: " + topIncident["severity"] + " " + topIncident["shortDesc"])
+  
   results["excuses"]["trafficExcuse"]["traffic"] = traffic
-  results["excuses"]["trafficExcuse"]["text"] = "This is the traffic related excuse."
+  results["excuses"]["trafficExcuse"]["text"] = topIncident["shortDesc"]
   
   #process weather excuses
   
