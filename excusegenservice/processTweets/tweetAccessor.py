@@ -10,9 +10,9 @@ def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties
 
   try:
 
+    keywordString = ""
     if andOr == "or":
       #build keyword string
-      keywordString = ""
       for i in range(len(keywords)):      
 	keywordString = keywordString + keywords[i]
 	if i + 1 < len(keywords):
