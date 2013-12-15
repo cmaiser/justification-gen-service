@@ -24,7 +24,7 @@ def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties
     tso = TwitterSearchOrder()
     if andOr == "or":
       tso.setKeywords([keywordString])
-    elif andOr == "and"
+    elif andOr == "and":
       tso.setKeywords(keywords)
     tso.setLanguage('en')
     tso.setGeocode(latitude, longitude, distance, False)
