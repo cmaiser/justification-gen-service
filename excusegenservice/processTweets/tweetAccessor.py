@@ -3,7 +3,7 @@ import os
 import re
 import nltk
 
-def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties):
+def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties, ts):
   
   returnDict = []
   #returnDict["returnMessage"] = "A server error occured in tweetAccessor.getTweets"
@@ -30,14 +30,6 @@ def getTweets(latitude, longitude, keywords, distance, andOr, logger, properties
     tso.setGeocode(latitude, longitude, distance, False)
     tso.setCount(100)
     tso.setIncludeEntities(False)
-    
-    #set TwitterSearch authentication args from properties
-    ts = TwitterSearch(
-      consumer_key = properties["twitter_consumer_key"],
-      consumer_secret = properties["twitter_consumer_secret"],
-      access_token = properties["twitter_access_token"],
-      access_token_secret = properties["twitter_access_token_secret"]
-    )
 
     logger.debug("tweetAccessor.getTweets - Searching Twitter")
     

@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.utils import simplejson
+from TwitterSearch import *
   
 import urllib2
 import logging
@@ -81,23 +82,24 @@ def generateExcuses(request):
       year           = str(request.POST['year'])
       
       properties = getProperties()
+      ts = getTS(properties)
 
       startTime = time.time()
 
       #get the data
       keywords = ["sick", "flu"]
-      tweets   = getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
+      tweets   = getTweets(latitude, longitude, keywords, 25, "or", logger, properties, ts)
       keywords = ["sick", "cold"]
-      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties, ts)
       tweets = tweets + newTweets
       keywords = ["call", "in", "sick"]
-      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties, ts)
       tweets = tweets + newTweets
       keywords = ["disease", "fever", "virus", "sizurp", "sizzurp"]
-      newTweets = getTweets(latitude, longitude, keywords, 25, "or", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "or", logger, properties, ts)
       tweets = tweets + newTweets
       keywords = ["projectile", "vomit"]
-      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties)
+      newTweets = getTweets(latitude, longitude, keywords, 25, "and", logger, properties, ts)
       tweets = tweets + newTweets
       
       traffic  = getTraffic(latitude, longitude, 25, logger, properties)
@@ -140,3 +142,14 @@ def getProperties():
   logger.debug("views.getProperties - Successfully read authentication.properties")
     
   return properties
+
+def getTS(properties):
+  #set TwitterSearch authentication args from properties
+    ts = TwitterSearch(
+      consumer_key = properties["twitter_consumer_key"],
+      consumer_secret = properties["twitter_consumer_secret"],
+      access_token = properties["twitter_access_token"],
+      access_token_secret = properties["twitter_access_token_secret"]
+    )
+    logger.debug("Got ts")
+    return ts
