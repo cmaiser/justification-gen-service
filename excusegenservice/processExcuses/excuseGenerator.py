@@ -30,9 +30,11 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   topKeywords = sorted(masterKeywordCounter, key=masterKeywordCounter.get)
   topKeywords.reverse()
   
-  keywordsUsed = [topKeywords[0], topKeywords[1], topKeywords[2], topKeywords[3]]
-  
-  word = choice(keywordsUsed)
+  if len(keywordsUsed > 3):
+    keywordsUsed = [topKeywords[0], topKeywords[1], topKeywords[2], topKeywords[3]]
+    word = choice(keywordsUsed)
+  else:
+    word = "ill"
   sentence = ""
   
   if word == "sick":
