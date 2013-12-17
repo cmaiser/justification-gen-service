@@ -24,6 +24,8 @@ def resolveLocation(latitude, longitude, logger):
 	allOptions += "  " + component["types"][0] +  ": " + component["long_name"] + "\n"
  
       #possibilities for city
+      if component["types"][0] == "sublocality":
+	cityPossibilities["sublocality"] = component["long_name"]
       if component["types"][0] == "locality":
 	cityPossibilities["locality"] = component["long_name"]
       if component["types"][0] == "administrative_area_level_3":
@@ -39,8 +41,10 @@ def resolveLocation(latitude, longitude, logger):
       if component["types"][0] == "country":
 	returnList["country"] = component["long_name"]
     
-    #get city.  Order of preference: locality, administrative_area_level_3,  administrative_area_level_2
-    if "locality" in cityPossibilities.keys():
+    #get city.  Order of preference: sublocality, locality, administrative_area_level_3,  administrative_area_level_2
+    if "sublocality" in cityPossibilities.keys():
+      returnList["city"] = cityPossibilities["sublocality"]
+    elif "locality" in cityPossibilities.keys():
       returnList["city"] = cityPossibilities["locality"]
     elif "administrative_area_level_3" in cityPossibilities.keys():
       returnList["city"] = cityPossibilities["administrative_area_level_3"]

@@ -81,13 +81,11 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   
   #logger.debug("Generating excuse from " + str(len(weather["alerts"])) + " Weather Alerts!")
   
-  #weatherExcuse = ""
-  #if len(weather["alerts"]) > 0:
-    #weatherExcuse = weather["alerts"][0]["description"]
-  #else:
-  weatherExcuse = "It is too nice of a day out."
-  
-  weather["alerts"] = []
+  weatherExcuse = ""
+  if len(weather["alerts"]) > 0:
+    weatherExcuse = weather["alerts"][0]["description"]
+  else:
+    weatherExcuse = "It is too nice of a day out."
   
   results["excuses"]["weatherExcuse"]["weather"] = weather
   results["excuses"]["weatherExcuse"]["text"] = weatherExcuse
