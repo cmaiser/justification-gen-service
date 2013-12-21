@@ -85,7 +85,7 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   if len(weather["alerts"]) > 0:
     weatherExcuse = weather["alerts"][0]["description"]
   else:
-    weatherExcuse = "I feel horrible about how I handled a recent situation and how I treated someone I care about."
+    weatherExcuse = "It's too nice of a day!"
   
   results["excuses"]["weatherExcuse"]["weather"] = weather
   results["excuses"]["weatherExcuse"]["text"] = weatherExcuse
