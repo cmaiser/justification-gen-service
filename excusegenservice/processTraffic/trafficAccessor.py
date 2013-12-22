@@ -5,6 +5,8 @@ import os
 def getTraffic(latitude, longitude, milesFromCenter, logger, properties):
   url = "http://www.mapquestapi.com/traffic/v2/incidents?key=" + properties["mapquest_key"] + "&boundingBox=" + getBoundingBox(latitude, longitude, milesFromCenter, logger) + "&filters=construction,incidents&inFormat=kvp&outFormat=json"
 
+  logger.debug("URL for traffic: " + url)
+
   try:
 
     response = urllib2.urlopen(url)
