@@ -72,10 +72,13 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
     if incident["severity"] > topIncident["severity"]:
       topIncident = incident
   
-  logger.debug("Top Incident: " + str(topIncident["severity"]) + " " + topIncident["shortDesc"])
+  #logger.debug("Top Incident: " + str(topIncident["severity"]) + " " + topIncident["shortDesc"])
   
   results["excuses"]["trafficExcuse"]["traffic"] = traffic
-  results["excuses"]["trafficExcuse"]["text"] = "I am stuck in my car.  " + topIncident["shortDesc"]
+  if "shortDesc" in topIncident.keys():
+    results["excuses"]["trafficExcuse"]["text"] = "I am stuck in my car.  " + topIncident["shortDesc"]
+  else:
+    results["excuses"]["trafficExcuse"]["text"] = "I am stuck in my car with a flat.  No traffic incidents found."
   
   #process weather excuses
   
