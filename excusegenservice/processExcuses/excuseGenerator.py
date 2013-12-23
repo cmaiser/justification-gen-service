@@ -78,7 +78,7 @@ def generateExcusesFromData(tweets, traffic, weather, holidays, logger):
   if "shortDesc" in topIncident.keys():
     results["excuses"]["trafficExcuse"]["text"] = "I am stuck in my car.  " + topIncident["shortDesc"]
   else:
-    results["excuses"]["trafficExcuse"]["text"] = "I miss you."
+    results["excuses"]["trafficExcuse"]["text"] = "I really do miss you.  I'm sorry."
   
   #process weather excuses
   
